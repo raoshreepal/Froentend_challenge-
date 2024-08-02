@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Quiz</title>
+</head>
+<body>
+
+<h1>Simple Quiz</h1>
+<p id="question"></p>
+<button onclick="answer(true)">True</button>
+<button onclick="answer(false)">False</button>
+
+<script>
+    const quiz = [
+        { question: "Is the sky blue?", correct: true },
+        { question: "Is 2+2 equal to 5?", correct: false }
+    ];
+    let currentQuestion = 0;
+
+    function showQuestion() {
+        document.getElementById('question').innerText = quiz[currentQuestion].question;
+    }
+
+    function answer(isTrue) {
+        if (quiz[currentQuestion].correct === isTrue) {
+            alert('Correct!');
+        } else {
+            alert('Wrong!');
+        }
+        currentQuestion++;
+        if (currentQuestion < quiz.length) {
+            showQuestion();
+        } else {
+            alert('Quiz Finished!');
+        }
+    }
+
+    showQuestion();
+</script>
+
+</body>
+</html>
