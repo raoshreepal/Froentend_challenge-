@@ -4,28 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Storage Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .save-btn { background: #4CAF50; }
+        .save-btn:hover { background: #45a049; }
+        .load-btn { background: #2196F3; }
+        .load-btn:hover { background: #1976D2; }
+        .clear-btn { background: #f44336; }
+        .clear-btn:hover { background: #d32f2f; }
+        p {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Save and Retrieve Data</h1>
-<input type="text" id="userInput" placeholder="Type something...">
-<button onclick="saveData()">Save</button>
-<button onclick="loadData()">Load</button>
-<p id="output"></p>
+<div class="container">
+    <h1>Local Storage Demo</h1>
+    <input type="text" id="userInput" placeholder="Type something...">
+    <div>
+        <button class="save-btn" onclick="saveData()">💾 Save</button>
+        <button class="load-btn" onclick="loadData()">📂 Load</button>
+        <button class="clear-btn" onclick="clearData()">🗑 Clear</button>
+    </div>
+    <p id="output"></p>
+</div>
 
 <script>
     function saveData() {
         const input = document.getElementById('userInput').value;
+        if (input.trim() === "") {
+            alert("Please enter something before saving.");
+            return;
+        }
         localStorage.setItem('userData', input);
+        document.getElementById('output').innerText = `✅ Data Saved: ${input}`;
     }
 
     function loadData() {
         const data = localStorage.getItem('userData');
         if (data) {
-            document.getElementById('output').innerText = `Saved Data: ${data}`;
+            document.getElementById('output').innerText = `📂 Saved Data: ${data}`;
         } else {
-            document.getElementById('output').innerText = 'No data found.';
+            document.getElementById('output').innerText = '⚠ No data found.';
         }
+    }
+
+    function clearData() {
+        localStorage.removeItem('userData');
+        document.getElementById('output').innerText = '🗑 Data cleared.';
     }
 </script>
 
