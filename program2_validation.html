@@ -4,29 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        .success {
+            color: green;
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
 
-<form id="myForm">
+<form id="myForm" novalidate>
     <label for="name">Name:</label>
-    <input type="text" id="name" name="name" >
-    <br><br>
+    <input type="text" id="name" name="name">
+    <div id="nameError" class="error">Name is required.</div>
+
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" >
+    <input type="email" id="email" name="email">
+    <div id="emailError" class="error">Please enter a valid email.</div>
+
     <input type="submit" value="Submit">
 </form>
 
+<div id="successMessage" class="success"></div>
+
 <script>
-    document.getElementById('myForm').addEventListener('submit', function(event) {
-        let name = document.getElementById('name').value;
-        let email = document.getElementById('email').value;
-        
-        if (!name || !email) {
-            alert("Please fill in all fields.");
+    const form = document.getElementById('myForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const successMessage = document.getElementById('successMessage');
+
+    function validateEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener('submit', function(event) {
+        let valid = true;
+        successMessage.textContent = '';
+
+        if (!nameInput.value.trim()) {
+            nameError.style.display = 'block';
+            valid = false;
+        } else {
+            nameError.style.display = 'none';
+        }
+
+        if (!emailInput.value.trim() || !validateEmail(emailInput.value)) {
+            emailError.style.display = 'block';
+            valid = false;
+        } else {
+            emailError.style.display = 'none';
+        }
+
+        if (!valid) {
             event.preventDefault();
+        } else {
+            event.preventDefault(); // remove this if you want actual form submission
+            successMessage.textContent = 'Form submitted successfully!';
         }
     });
 
+    // Real-time validation
+    nameInput.addEventListener('input', () => {
+        if (nameInput.value.trim()) {
+            nameError.style.display = 'none';
+        }
+    });
+
+    emailInput.addEventListener('input', () => {
+        if (validateEmail(emailInput.value)) {
+            emailError.style.display = 'none';
+        }
+    });
 </script>
 
 </body>
