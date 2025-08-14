@@ -3,28 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS Animation Example</title>
+    <title>Bouncing Colorful Ball</title>
     <style>
-        .box {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            position: relative;
-            animation: move 5s infinite;
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: sans-serif;
         }
-        @keyframes move {
-            0% { left: 0; }
-            50% { left: calc(100% - 100px); }
-            100% { left: 0; }
+
+        .ball {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #ff6f91, #ff9671);
+            animation: bounce 2s ease-in-out infinite, colorChange 4s linear infinite;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
-        .box:hover {
-            background-color: blue;
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-150px); }
+        }
+
+        @keyframes colorChange {
+            0% { background: radial-gradient(circle at 30% 30%, #ff6f91, #ff9671); }
+            50% { background: radial-gradient(circle at 70% 70%, #845ec2, #d65db1); }
+            100% { background: radial-gradient(circle at 30% 30%, #ff6f91, #ff9671); }
+        }
+
+        .ball:hover {
+            transform: scale(1.2);
+            animation-play-state: paused;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-<div class="box"></div>
+    <div class="ball"></div>
 
 </body>
 </html>
