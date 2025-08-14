@@ -4,40 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        }
+
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            background: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        input {
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 90%;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Dynamic Table</h1>
-<button onclick="addRow()">Add Row</button>
-<table id="dynamicTable" border="1">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Rows will be added dynamically here -->
-    </tbody>
-</table>
+<div class="container">
+    <h1>Dynamic Table</h1>
+    <button onclick="addRow()">➕ Add Row</button>
+    <table id="dynamicTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be added dynamically here -->
+        </tbody>
+    </table>
+</div>
 
 <script>
     function addRow() {
         const table = document.getElementById('dynamicTable').getElementsByTagName('tbody')[0];
         const row = table.insertRow();
+        
         const nameCell = row.insertCell(0);
         const ageCell = row.insertCell(1);
         const actionCell = row.insertCell(2);
 
-        nameCell.innerHTML = `<input type="text" placeholder="Name">`;
-        ageCell.innerHTML = `<input type="number" placeholder="Age">`;
-        actionCell.innerHTML = `<button onclick="deleteRow(this)">Delete</button>`;
+        nameCell.innerHTML = `<input type="text" placeholder="Enter Name">`;
+        ageCell.innerHTML = `<input type="number" placeholder="Enter Age">`;
+        actionCell.innerHTML = `<button class="delete-btn" onclick="deleteRow(this)">🗑 Delete</button>`;
     }
 
     function deleteRow(button) {
-        const row = button.parentElement.parentElement;
-        row.remove();
+        button.parentElement.parentElement.remove();
     }
 </script>
 
